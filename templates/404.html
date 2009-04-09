@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block pretitle %}Page Not Found — {% endblock %}
+
+{% block content %}
+  <h1>Page not found</h1>
+  <p>Sorry, the page <strong>{{ request_path }}</strong> can’t be found.</p>
+  <h2>Did you type the URL?</h2>
+  <p>You may have typed the address (URL) incorrectly. Check it to make sure you've got the exact right spelling, capitalization, etc.</p>
+
+  <h2>Did you follow a link from somewhere else at this site?</h2>
+  <p>If you reached this page from another part of this site, please <a href="mailto:example@example.org">email me</a> so I can correct the mistake.</p>
+
+  <h2>Did you follow a link from another site?</h2>
+  <p>Links from other sites can sometimes be outdated or misspelled. <a href="mailto:example@example.org">Email me</a> where you came from and I can try to contact the other site in order to fix the problem.</p>
+
+  <ul>
+  	<li><a href="javascript:history.go(-1)">Go back a page</a></li>
+  	<li><a href="/">Visit the home page</a></li>
+  </ul>
+{% endblock %}
