@@ -1,20 +1,24 @@
 # django-exampleproject
 
-django-exampleproject serves me as a solid basis to start from when initiating 
-a new Django project.
+A pre-configured Django 1.1 project that can be used as a starting point.
+The following changes were made:
 
 - Import settings_local.py in settings.py
-- sqlite3 database saved in project directory
-- Static media in "static_media/" served by static.serve when DEBUG = True
-- TEMPLATE_DIRS set to "templates/" directory in project directory.
-- Email settings configured for Python DebuggingServer on port 1025 (see settings.py for information on how to start the server)
+- Sqlite3 database saved in project directory
+- Static media in "media/" served by static.serve
+- TEMPLATE_DIRS set to "templates/" directory
+- E-mail settings configured for Python DebuggingServer
 - GZipMiddleware installed
-- base.html template with basic HTML4.01 skeleton
-- 404.html/500.html error page templates
+- example base.html template with basic HTML4.01 skeleton
+- example 404.html/500.html error page templates
 - custom error 500 handler with MEDIA_URL in context
-- django.contrib.admin installed
-- initial_data.json fixture with superuser for admin
+- contrib.admin installed
+- initial_data.json fixture with superuser
     - User: admin
     - Password: admin
-- django-debug-toolbar installed
-- django-command-extensions installed
+- django-debug-toolbar configured (run `pip install django-debug-toolbar`)
+- change ADMIN_MEDIA_PREFIX to "/media/admin/"
+- CACHE_BACKEND set to locmem
+
+If you want to rename the project, remember to change the ROOT_URLCONF
+variable in settings.py to the new project name.

@@ -2,14 +2,15 @@
 
 import os
 
-PROJECT_PATH = os.getcwd()
-
+PROJECT_PATH = os.path.dirname(__file__)
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
+
+CACHE_BACKEND = 'locmem:///'
 
 MANAGERS = ADMINS
 
@@ -39,17 +40,17 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'static_media/')
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/static_media/'
+MEDIA_URL = '/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/media/admin/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'y6xvk%bf5wn)t!*ltmgemv-g5z*uvoyg%kd&d&*vf(o46tfwv8'
@@ -61,38 +62,35 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.load_template_source',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.middleware.gzip.GZipMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-)
+]
 
 ROOT_URLCONF = 'exampleproject.urls'
 
 TEMPLATE_DIRS = [os.path.join(PROJECT_PATH, 'templates')]
 
-INSTALLED_APPS = (
-    'django.contrib.auth',
+INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    
-    'debug_toolbar',
-    'django_extensions',
-)
-
-# Run `python -m smtpd -n -c DebuggingServer localhost:1025` to start a 
-# local email server on port 1025
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-
-# django-debug-toolbar settings
-INTERNAL_IPS = ('127.0.0.1',)
+]
 
 try:
     from settings_local import *
 except ImportError:
     pass
+else:
+    try:
+        INSTALLED_APPS += LOCAL_INSTALLED_APPS
+    except NameError:
+        pass
+    try:
+        MIDDLEWARE_CLASSES += LOCAL_MIDDLEWARE_CLASSES
+    except NameError:
+        pass
